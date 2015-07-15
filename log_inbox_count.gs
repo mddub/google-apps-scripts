@@ -3,7 +3,8 @@
 // INSTALLATION:
 //
 // 1. Create a new spreadsheet in Google Drive.
-//    Go to Tools -> Script Editor, and paste this file in.
+//    Go to Tools -> Script Editor, create a script for a "Blank Project".
+//    Paste this file in.
 // 2. At the top, set SPREADSHEET_URL and SHEET_NAME to the spreadsheet where
 //    you want to log your inbox count (this is probably the blank new sheet you
 //    just created).
@@ -14,7 +15,7 @@
 //    often you want to gather this data.
 // 5. Profit! (create a graph in a new sheet and share it publicly, etc.)
 
-var SPREADSHEET_URL = 'put your google spreadsheet url here';
+var SPREADSHEET_URL = 'put your google spreadsheet url here (ends in /edit)';
 var SHEET_NAME = 'put the name of the sheet here (e.g. Sheet1)';
 
 var PAGE_SIZE = 50;

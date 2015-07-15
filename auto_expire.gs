@@ -5,7 +5,8 @@
 // INSTALLATION:
 //
 // 1. Create a new spreadsheet in Google Drive.
-//    Go to Tools -> Script Editor, and paste this file in.
+//    Go to Tools -> Script Editor, create a script for a "Blank Project".
+//    Paste this file in.
 // 2. Set MAX_DAYS at the top of the script to the highest number label you
 //    want to create.
 // 3. Run the setup() function to create the labels.
@@ -46,4 +47,3 @@ function stepExpiration() {
     }
   }
 }
-
