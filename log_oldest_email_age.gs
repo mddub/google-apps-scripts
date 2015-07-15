@@ -1,4 +1,4 @@
-// Log the number of threads in your inbox.
+// Log the age of the oldest message thread in your inbox.
 //
 // INSTALLATION:
 //
@@ -8,37 +8,46 @@
 // 2. At the top, set SPREADSHEET_URL and SHEET_NAME to the spreadsheet where
 //    you want to log the data (this is probably the blank new sheet you just
 //    created).
-// 3. Add column headings, "Date" and "Count", to the first row of the sheet you
-//    specified in step 2.
+// 3. Add column headings, "Date" and "Oldest Email", to the first row of the
+//    sheet you specified in step 2.
 // 4. In the script editor, go to Resources -> Current project's triggers.
-//    Set the logInboxCount function to run hourly or daily, depending on how
+//    Set the logOldestEmailAge function to run hourly or daily, depending on how
 //    often you want to gather this data.
-// 5. Profit! (create a graph in a new sheet and share it publicly, etc.)
+// 5. Profit! (hook it up to Zapier + Beeminder, etc.)
 
 var SPREADSHEET_URL = 'put your google spreadsheet url here (ends in /edit)';
 var SHEET_NAME = 'put the name of the sheet here (e.g. Sheet1)';
 
 var PAGE_SIZE = 50;
 
-function logInboxCount() {
+function logOldestEmailAge() {
   var ss = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
-  var sheet = ss.getSheetByName(SHEET_NAME);
+  var sheet = ss.getSheetByName(DETAILS_SHEET_NAME);
 
-  var count = 0;
+  var now = new Date();
+  var oldest = now;
+
   var start = 0;
   var threads;
 
   do {
     threads = GmailApp.getInboxThreads(start, PAGE_SIZE);
-    count += threads.length;
+
+    threads.forEach(function(thread) {
+      oldest = thread.getLastMessageDate() < oldest ? thread.getLastMessageDate() : oldest;
+    });
 
     start += PAGE_SIZE;
   } while(threads.length > 0);
 
   // if the sheet is full, add a new batch of rows
-  if(sheet.getLastRow() == sheet.getMaxRows()) {
+  if(sheet.getMaxRows() - sheet.getLastRow() < PAGE_SIZE) {
     sheet.insertRowsAfter(sheet.getMaxRows(), 100);
   }
 
-  sheet.getRange(sheet.getLastRow() + 1, 1, 1, 2).setValues([[new Date(), count]]);
+  var ageOfOldestInDays = Math.floor((now - oldest) / (1000 * 60 * 60 * 24));
+
+  sheet.getRange(sheet.getLastRow() + 1, 1, 1, 2).setValues(
+    [[now, ageOfOldestInDays]]
+  );
 }
