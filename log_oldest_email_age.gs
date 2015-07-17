@@ -1,4 +1,5 @@
-// Log the age of the oldest message thread in your inbox.
+// Log the age of the oldest message thread in your inbox (only if it has
+// changed since the last time it was logged).
 //
 // INSTALLATION:
 //
@@ -40,14 +41,19 @@ function logOldestEmailAge() {
     start += PAGE_SIZE;
   } while(threads.length > 0);
 
-  // if the sheet is full, add a new batch of rows
-  if(sheet.getMaxRows() - sheet.getLastRow() < PAGE_SIZE) {
-    sheet.insertRowsAfter(sheet.getMaxRows(), 100);
-  }
-
   var ageOfOldestInDays = Math.floor((now - oldest) / (1000 * 60 * 60 * 24));
+  var lastValueLogged = sheet.getRange(sheet.getLastRow(), 2).getValue();
 
-  sheet.getRange(sheet.getLastRow() + 1, 1, 1, 2).setValues(
-    [[now, ageOfOldestInDays]]
-  );
+  if(ageOfOldestInDays !== lastValueLogged) {
+
+    // if the sheet is full, add a new batch of rows
+    if(sheet.getLastRow() === sheet.getMaxRows()) {
+      sheet.insertRowsAfter(sheet.getMaxRows(), 100);
+    }
+
+    sheet.getRange(sheet.getLastRow() + 1, 1, 1, 2).setValues(
+      [[now, ageOfOldestInDays]]
+    );
+
+  }
 }
