@@ -41,10 +41,10 @@ function logOldestEmailAge() {
     start += PAGE_SIZE;
   } while(threads.length > 0);
 
-  var ageOfOldestInDays = Math.floor((now - oldest) / (1000 * 60 * 60 * 24));
+  var ageOfOldest = dateDiffInDays(oldest, now);
   var lastValueLogged = sheet.getRange(sheet.getLastRow(), 2).getValue();
 
-  if(ageOfOldestInDays !== lastValueLogged) {
+  if(ageOfOldest !== lastValueLogged) {
 
     // if the sheet is full, add a new batch of rows
     if(sheet.getLastRow() === sheet.getMaxRows()) {
@@ -52,8 +52,17 @@ function logOldestEmailAge() {
     }
 
     sheet.getRange(sheet.getLastRow() + 1, 1, 1, 2).setValues(
-      [[now, ageOfOldestInDays]]
+      [[now, ageOfOldest]]
     );
 
   }
+}
+
+function dateDiffInDays(d1, d2) {
+  // compare dates only, ignore time of day
+  return Math.round((datetimeToDate(d2) - datetimeToDate(d1)) / (1000 * 60 * 60 * 24));
+}
+
+function datetimeToDate(d) {
+  return new Date(1990 + d.getYear(), d.getMonth(), d.getDate());
 }
