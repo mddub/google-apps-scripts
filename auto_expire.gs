@@ -2,21 +2,14 @@
 // beginning with "x" has its label updated to take one step closer to "x0"
 // ("x4" becomes "x3", etc.). An email with label "x0" is archived.
 //
-// INSTALLATION:
-//
-// 1. Create a new spreadsheet in Google Drive.
-//    Go to Tools -> Script Editor, create a script for a "Blank Project".
-//    Paste this file in.
-// 2. Set MAX_DAYS at the top of the script to the highest number label you
+// 1. Set MAX_DAYS at the top of the script to the highest number label you
 //    want to create.
-// 3. Run the setup() function to create the labels.
+// 2. Run the setup() function to create the labels.
 //    (Optional) Go to Gmail and customize the colors of those labels.
-// 4. In the script editor, go to Resources -> Current project's triggers.
-//    Set the stepExpiration function to run once a day, at the end of the day.
-// 5. Create Gmail filters to automatically assign a label like x4 or x2
+// 3. Set the stepExpiration function to run once a day, at the end of the day.
+// 4. Create Gmail filters to automatically assign a label like x4 or x2
 //    (depending on how fast of an expiration you want) to emails with
 //    certain senders or subjects.
-// 6. Profit!
 
 var MAX_DAYS = 6;
 
