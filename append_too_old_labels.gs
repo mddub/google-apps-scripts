@@ -38,7 +38,7 @@ function appendTooOldLabels() {
 }
 
 function removeAllAgeLabels() {
-  var ageLabelRe = new RegExp(LABEL_PREFIX + '\\d+');
+  var ageLabelRe = new RegExp('^' + LABEL_PREFIX + '\\d+$');
   GmailApp.getUserLabels().forEach(function(label) {
     if(label.getName().match(ageLabelRe)) {
       label.removeFromThreads(label.getThreads());
