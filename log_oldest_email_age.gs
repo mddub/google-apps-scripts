@@ -17,7 +17,7 @@ var PAGE_SIZE = 50;
 
 function logOldestEmailAge() {
   var ss = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
-  var sheet = ss.getSheetByName(DETAILS_SHEET_NAME);
+  var sheet = ss.getSheetByName(SHEET_NAME);
 
   var now = new Date();
   var oldest = now;
