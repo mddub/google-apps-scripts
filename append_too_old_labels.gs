@@ -15,6 +15,8 @@
 var MIN_AGE_TO_APPEND_LABEL = 21;
 var LABEL_PREFIX = 'd';
 
+var PAGE_SIZE = 50;
+
 function appendTooOldLabels() {
   var now = new Date();
 
