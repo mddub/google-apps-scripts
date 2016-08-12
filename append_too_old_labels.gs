@@ -36,6 +36,7 @@ function appendTooOldLabels() {
     });
 
     start += PAGE_SIZE;
+    Utilities.sleep(1000);
   } while(threads.length > 0);
 }
 
