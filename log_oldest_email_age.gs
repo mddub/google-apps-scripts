@@ -33,6 +33,7 @@ function logOldestEmailAge() {
     });
 
     start += PAGE_SIZE;
+    Utilities.sleep(1000);
   } while(threads.length > 0);
 
   var ageOfOldest = dateDiffInDays(oldest, now);

@@ -25,6 +25,7 @@ function logInboxCount() {
     count += threads.length;
 
     start += PAGE_SIZE;
+    Utilities.sleep(1000);
   } while(threads.length > 0);
 
   // if the sheet is full, add a new batch of rows

@@ -37,6 +37,8 @@ function stepExpiration() {
           GmailApp.getUserLabelByName("x" + (i - 1)).addToThreads(threads);
         }
       }
+
+      Utilities.sleep(1000);
     }
   }
 }
